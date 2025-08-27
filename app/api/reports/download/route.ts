@@ -402,7 +402,7 @@ export async function GET(req: NextRequest) {
           
           let onTimeStr = '';
           let offTimeStr = '';
-          let totalTime = '';
+          let totalTime: number | '' = '';
           
           // Try to pair ON/OFF jobs first
           if (onJobs.length > 0 && offJobs.length > 0) {
@@ -427,7 +427,7 @@ export async function GET(req: NextRequest) {
             onTimeStr = `${earliestOnTime.getHours().toString().padStart(2, '0')}:${earliestOnTime.getMinutes().toString().padStart(2, '0')}`;
             
             // Try to estimate OFF time from the latest ON job + some buffer
-            const latestOnJob = onJobs.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())[0];
+            const latestOnJob = onJobs.sort((a: typeof allJobs[number], b: typeof allJobs[number]) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())[0];
             const estimatedOffTime = new Date(latestOnJob.createdAt.getTime() + 30 * 60000); // Add 30 minutes buffer
             offTimeStr = `${estimatedOffTime.getHours().toString().padStart(2, '0')}:${estimatedOffTime.getMinutes().toString().padStart(2, '0')}`;
             
