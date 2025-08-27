@@ -73,7 +73,7 @@ export async function GET(req: NextRequest) {
     const { startDate, endDate } = getDateRange(reportType, startDateParam, endDateParam);
     
     const workbook = new ExcelJS.Workbook();
-    let worksheet;
+    let worksheet: ExcelJS.Worksheet;
 
     if (reportType === 'processWise') {
       // Operation/machine-wise report
