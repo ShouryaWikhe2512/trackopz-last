@@ -32,25 +32,25 @@ const getDateRange = (reportType: string, startDateParam?: string, endDateParam?
   return { startDate, endDate };
 };
 
-function formatDateTimeNoMs(date) {
+function formatDateTimeNoMs(date: Date) {
   // Format as 'YYYY-MM-DD HH:mm:ss'
-  const pad = (n) => n.toString().padStart(2, '0');
+  const pad = (n: number) => n.toString().padStart(2, '0');
   return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
 }
 
-function getIsoDateTimeToSecond(date) {
+function getIsoDateTimeToSecond(date: Date) {
   // Returns 'YYYY-MM-DDTHH:mm:ss' (ISO, no ms)
-  const pad = (n) => n.toString().padStart(2, '0');
+  const pad = (n: number) => n.toString().padStart(2, '0');
   return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
 }
 
-function formatTimeHHMMNoSeconds(dateStr) {
+function formatTimeHHMMNoSeconds(dateStr: string) {
   if (!dateStr) return '';
   const date = new Date(dateStr);
-  const pad = n => n.toString().padStart(2, '0');
+  const pad = (n: number) => n.toString().padStart(2, '0');
   return `${pad(date.getHours())}:${pad(date.getMinutes())}`;
 }
-function getMachineNumber(machineName) {
+function getMachineNumber(machineName: string) {
   if (!machineName) return '';
   const match = machineName.match(/#(\d+)/);
   if (match) return match[1];
