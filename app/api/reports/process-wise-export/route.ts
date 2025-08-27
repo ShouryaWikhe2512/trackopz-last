@@ -132,13 +132,13 @@ export async function GET(req: NextRequest) {
       }
     }
     // Prepare final result: show earliest ON Time and latest OFF Time for each group, and compute total time as their difference
-    const result = Array.from(groupedRows.values()).map(group => {
+    const result = Array.from(groupedRows.values()).map((group: any) => {
       // Find earliest ON and latest OFF as Date objects
-      const onTimes = group.onTimes.filter(Boolean).map(t => {
+      const onTimes = group.onTimes.filter(Boolean).map((t: string) => {
         const [h, m] = t.split(':');
         return new Date(`${group.date}T${h.padStart(2, '0')}:${m.padStart(2, '0')}:00`);
       });
-      const offTimes = group.offTimes.filter(Boolean).map(t => {
+      const offTimes = group.offTimes.filter(Boolean).map((t: string) => {
         const [h, m] = t.split(':');
         return new Date(`${group.date}T${h.padStart(2, '0')}:${m.padStart(2, '0')}:00`);
       });
