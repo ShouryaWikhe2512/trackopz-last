@@ -325,7 +325,18 @@ export async function GET(req: NextRequest) {
       }
 
       // Group jobs by machine and product for better organization
-      const machineGroups = {};
+      const machineGroups: Record<string, {
+        processName: string;
+        machineNumber: string;
+        products: Record<string, {
+          jobs: typeof allJobs;
+          totalQuantity: number;
+          onTimes: Date[];
+          offTimes: Date[];
+          onJobs: typeof allJobs;
+          offJobs: typeof allJobs;
+        }>;
+      }> = {};
       allJobs.forEach(job => {
         if (!job.machine || !job.product) return;
         
