@@ -53,7 +53,7 @@ export async function GET(req: NextRequest) {
       orderBy: { createdAt: 'asc' },
     });
     // Normalize function for machine names
-    function normalizeMachineName(name) {
+    function normalizeMachineName(name: string) {
       return name.split('#')[0].replace(/[-\s]+/g, ' ').trim().toLowerCase();
     }
     const normalizedOperationType = normalizeMachineName(operationType);
@@ -77,10 +77,10 @@ export async function GET(req: NextRequest) {
     // For every job with state OFF, use createdAt as ON Time and updatedAt as OFF Time, and show total time in minutes only
     const allRows: any[] = [];
     // Helper to format time as HH:MM (ignore seconds)
-    function formatTimeHHMMOnly(date) {
+    function formatTimeHHMMOnly(date: Date | string | undefined) {
       if (!date) return '';
       const d = new Date(date);
-      const pad = (n) => n.toString().padStart(2, '0');
+      const pad = (n: number) => n.toString().padStart(2, '0');
       return `${pad(d.getHours())}:${pad(d.getMinutes())}`;
     }
 
@@ -96,7 +96,7 @@ export async function GET(req: NextRequest) {
           const totalMinutes = Math.round((new Date(job.updatedAt || job.createdAt).getTime() - new Date(job.createdAt).getTime()) / 60000) || 0;
           allRows.push({
             productId: job.product.name,
-            quantity: job.quantity || 1,
+            quantity: 1,
             machineNumber,
             date: dateStr,
             onTime: formatTimeHHMMOnly(job.createdAt),
