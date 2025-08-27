@@ -114,7 +114,7 @@ export async function GET(req: NextRequest) {
       // All time formatting for ON/OFF is handled below. Always output as HH:mm (no seconds, no ms)
       // ---
       // Get all jobs for the operation type and date range
-      const jobGroups = {};
+      const jobGroups: Record<string, typeof jobs> = {};
       jobs.forEach(job => {
         // Only skip if product or machine is truly missing
         if (!job.product || !job.machine) {
@@ -123,10 +123,18 @@ export async function GET(req: NextRequest) {
         }
         // Group by productId and machineId
         const key = `${job.productId}__${job.machineId}`;
-        if (!jobGroups[key]) jobGroups[key] = [];
-        jobGroups[key].push(job);
+        (jobGroups[key] ??= [] as typeof jobs).push(job);
       });
-      const allRows = [];
+      type Row = {
+        productId: string;
+        machineNumber: string;
+        date: string;
+        onTime: string;
+        offTime: string;
+        totalTime: number | '';
+        quantity: number;
+      };
+      const allRows: Row[] = [];
       Object.values(jobGroups).forEach((group) => {
         group.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
         // Separate ON and OFF jobs
@@ -190,7 +198,7 @@ export async function GET(req: NextRequest) {
         }
       });
       // Group rows by all parameters
-      const groupedRowsObj = {};
+      const groupedRowsObj: Record<string, Row> = {};
       for (const row of allRows) {
         const groupKey = [
           row.productId,
