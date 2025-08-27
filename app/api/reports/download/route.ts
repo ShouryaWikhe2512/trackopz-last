@@ -168,7 +168,7 @@ export async function GET(req: NextRequest) {
             onTime: onTimeStr,
             offTime: offTimeStr,
             totalTime: totalTime ? totalTime : '',
-            quantity: onJob.quantity || 1
+            quantity: 1
           });
           onIdx++;
           offIdx++;
@@ -193,7 +193,7 @@ export async function GET(req: NextRequest) {
             onTime: onTimeStr,
             offTime: '',
             totalTime: '',
-            quantity: onJob.quantity || 1
+            quantity: 1
           });
         }
       });
@@ -231,7 +231,7 @@ export async function GET(req: NextRequest) {
             onTime: onTimeStr,
             offTime: offTimeStr,
             totalTime: '',
-            quantity: job.quantity || 1
+            quantity: 1
           });
         });
         addedRows = jobs.length;
