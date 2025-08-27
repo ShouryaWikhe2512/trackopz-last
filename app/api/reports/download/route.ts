@@ -187,7 +187,7 @@ export async function GET(req: NextRequest) {
           const onTimeStr = `${onTime.getHours().toString().padStart(2, '0')}:${onTime.getMinutes().toString().padStart(2, '0')}`;
           // Fallback: unmatched ON job, blank OFF/total time
           allRows.push({
-            productId: onJob.product.name || onJob.productId,
+            productId: onJob.product.name || String(onJob.productId),
             machineNumber,
             date: dateStr,
             onTime: onTimeStr,
