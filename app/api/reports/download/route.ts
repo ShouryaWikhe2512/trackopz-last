@@ -407,8 +407,8 @@ export async function GET(req: NextRequest) {
           // Try to pair ON/OFF jobs first
           if (onJobs.length > 0 && offJobs.length > 0) {
             // Sort jobs by time to find the best pairs
-            const sortedOnJobs = onJobs.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
-            const sortedOffJobs = offJobs.sort((a, b) => new Date(a.updatedAt || a.createdAt).getTime() - new Date(b.updatedAt || b.createdAt).getTime());
+            const sortedOnJobs = onJobs.sort((a: typeof allJobs[number], b: typeof allJobs[number]) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+            const sortedOffJobs = offJobs.sort((a: typeof allJobs[number], b: typeof allJobs[number]) => new Date(a.updatedAt || a.createdAt).getTime() - new Date(b.updatedAt || b.createdAt).getTime());
             
             // Find the earliest ON and latest OFF time
             const earliestOnTime = new Date(sortedOnJobs[0].createdAt);
