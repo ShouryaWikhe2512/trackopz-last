@@ -366,7 +366,7 @@ export async function GET(req: NextRequest) {
         }
         
         machineGroups[machineName].products[productName].jobs.push(job);
-        machineGroups[machineName].products[productName].totalQuantity += (job.quantity || 1);
+        machineGroups[machineName].products[productName].totalQuantity += 1;
         
         if (job.state === 'ON') {
           machineGroups[machineName].products[productName].onTimes.push(new Date(job.createdAt));
