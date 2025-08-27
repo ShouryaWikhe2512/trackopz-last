@@ -423,7 +423,7 @@ export async function GET(req: NextRequest) {
             }
           } else if (onJobs.length > 0) {
             // Only ON jobs exist
-            const earliestOnTime = new Date(Math.min(...onTimes.map(t => t.getTime())));
+            const earliestOnTime = new Date(Math.min(...onTimes.map((t: Date) => t.getTime())));
             onTimeStr = `${earliestOnTime.getHours().toString().padStart(2, '0')}:${earliestOnTime.getMinutes().toString().padStart(2, '0')}`;
             
             // Try to estimate OFF time from the latest ON job + some buffer
@@ -433,7 +433,7 @@ export async function GET(req: NextRequest) {
             
           } else if (offJobs.length > 0) {
             // Only OFF jobs exist - try to estimate ON time
-            const latestOffTime = new Date(Math.max(...offTimes.map(t => t.getTime())));
+            const latestOffTime = new Date(Math.max(...offTimes.map((t: Date) => t.getTime())));
             offTimeStr = `${latestOffTime.getHours().toString().padStart(2, '0')}:${latestOffTime.getMinutes().toString().padStart(2, '0')}`;
             
             // Estimate ON time by subtracting some time from OFF time
